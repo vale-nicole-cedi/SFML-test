@@ -81,32 +81,87 @@ void Grid::click(int x, int y)
 
 void Grid::update()
 {
+    
     for (int i=0; i<this->rows; i++)
     {
         for (int j=0; j<this->cols; j++)
         {
-            
-            if (this->grid[i][j] == 1)
-            {   
-                if (j == this->cols -1)
-                {
+            int neighbors = this->contarVecinos(i,j);
+            if (this->grid [i][j]== 0)
+            {
+               if (neighbors==3) 
+               {
                     this->next[i][j] = 1;
-                }
-                else
-                {
-                    if ( this->grid [i][j+1] == 0)
-                    {
-                        this->next [i][j] = 0;
-                        this->next [i][j+1] = 1;
-                    }
-                    else
-                    {
-                        this->next [i][j] = 1;
-                    }
-                }
-                
+               }
             }
+            if (this->grid[i][j] == 1)
+            {
+                if (neighbors>3 || neighbors<=1)
+                {
+                    this->next [i][j] = 0;
+                }
+                if (neighbors==2 || neighbors==3)
+                {
+                    this->next [i][j] = 1;
+
+                }
+            }
+           
         }
     }
     this->grid = this->next;
+}
+
+int Grid::contarVecinos(int i, int j)
+{
+    int vecinos;
+            if (i==this->rows-1) 
+            {
+
+            }
+            if (j == this->cols-1)
+            {
+
+            }
+            if (j==0 && i==0)
+            {
+
+            }
+                if (this->grid[i+1][j] == 1)
+                {
+                    vecinos+=1;
+                }
+                if (this->grid[i-1][j] == 1)
+                {
+                    vecinos+=1;
+
+                }
+               if (this->grid[i+1][j+1] == 1)
+                {
+                    vecinos+=1;
+
+                }
+               if (this->grid[i-1][j+1] == 1)
+                {
+                    vecinos+=1;
+                    
+                }
+               if (this->grid[i+1][j-1] == 1)
+                {
+                    vecinos+=1;  
+                }
+               if (this->grid[i-1][j-1] == 1)
+                {
+                    vecinos+=1;  
+                }
+               if (this->grid[i][j+1] == 1)
+                {
+                    vecinos+=1;  
+                }
+               if (this->grid[i][j-1] == 1)
+                {
+                    vecinos+=1;
+                }
+            
+     return vecinos; 
 }

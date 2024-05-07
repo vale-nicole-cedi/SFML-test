@@ -5,6 +5,8 @@ using namespace sf;
 int width = 400;
 int height = 400;
 int numCells = 20;
+        bool play;
+
 
 int main()
 {
@@ -24,16 +26,29 @@ int main()
                 if (event.mouseButton.button == Mouse::Left)
                 {
                     int x = event.mouseButton.x;
-                    int y = event.mouseButton.y;
-                    grid.click(x,y);
+                    int y = event.mouseButton.y ;
+                    grid.click (x,y);
+
+                }
+            }
+            if (event.type == Event::KeyPressed)
+            {
+
+                if (event.key.code == Keyboard::Space)
+                {
+                   play = !play;
                 }
             }
         }
 
-        window.clear(Color(51,51,51));
-        grid.update();
+        window.clear();       
+        if (play == 1)
+        {
+            grid.update();
+        }
         grid.drawTo(window);
         window.display();
+       
     }
 
     return 0;
