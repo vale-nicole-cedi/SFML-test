@@ -5,7 +5,7 @@ using namespace sf;
 int width = 400;
 int height = 400;
 int numCells = 20;
-        bool play;
+bool play=0;
 
 
 int main()
@@ -25,23 +25,24 @@ int main()
             {
                 if (event.mouseButton.button == Mouse::Left)
                 {
+                    play = false;
                     int x = event.mouseButton.x;
                     int y = event.mouseButton.y ;
                     grid.click (x,y);
 
                 }
             }
-            if (event.type == Event::KeyPressed)
+            if (event.type == Event::MouseButtonPressed)
             {
 
-                if (event.key.code == Keyboard::Space)
+                if (event.mouseButton.button == Mouse::Right)
                 {
                    play = !play;
                 }
             }
         }
 
-        window.clear();       
+        window.clear(Color(51,51,51));       
         if (play == 1)
         {
             grid.update();

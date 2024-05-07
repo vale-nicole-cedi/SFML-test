@@ -2,27 +2,31 @@
 
 Grid:: Grid(int rows, int cols)
 {
-    this->rows = rows;
-    this->cols = cols;
+    
     for (int i=0; i<rows; i++)
     {
+        this->rows = rows;
+        this->cols = cols;
         this->grid.push_back({});
         for (int j=0; j<cols; j++)
         {
             this->grid[i].push_back(0);
         }
     }
+    this->next = vector<vector<int>>(rows, vector<int>(cols,0));
 }
 
 Grid:: Grid(int rows, int cols, int width, int height)
 {
-    this->rows = rows;
-    this->cols = cols;
-    this->sizeX = width/cols;
-    this->sizeY= height/rows;
-    this->size = Vector2f(width/cols, height/rows);
+    
     for (int i=0; i<rows; i++)
     {
+        this->rows = rows;
+        this->cols = cols;
+        this->sizeX = width/cols;
+        this->sizeY= height/rows;
+        this->size = Vector2f(width/cols, height/rows);
+
         this->grid.push_back({});
         for (int j=0; j<cols; j++)
         {
@@ -30,7 +34,6 @@ Grid:: Grid(int rows, int cols, int width, int height)
         }
     }
 
-    this->next = vector<vector<int>>(rows, vector<int>(cols,0));
 }
 
 
@@ -87,25 +90,32 @@ void Grid::update()
         for (int j=0; j<this->cols; j++)
         {
             int neighbors = this->contarVecinos(i,j);
-            if (this->grid [i][j]== 0)
+
+           if (this->grid [i][j]== 0)
             {
                if (neighbors==3) 
                {
                     this->next[i][j] = 1;
                }
-            }
+               else
+               {
+                    this->next[i][j] = 0; 
+               }
+            } 
             if (this->grid[i][j] == 1)
             {
                 if (neighbors>3 || neighbors<=1)
                 {
                     this->next [i][j] = 0;
                 }
-                if (neighbors==2 || neighbors==3)
+                if (neighbors==2 && neighbors==3)
                 {
                     this->next [i][j] = 1;
 
                 }
             }
+            
+            
            
         }
     }
@@ -114,54 +124,41 @@ void Grid::update()
 
 int Grid::contarVecinos(int i, int j)
 {
-    int vecinos;
-            if (i==this->rows-1) 
-            {
-
-            }
-            if (j == this->cols-1)
-            {
-
-            }
-            if (j==0 && i==0)
-            {
-
-            }
-                if (this->grid[i+1][j] == 1)
-                {
-                    vecinos+=1;
-                }
-                if (this->grid[i-1][j] == 1)
-                {
-                    vecinos+=1;
-
-                }
-               if (this->grid[i+1][j+1] == 1)
-                {
-                    vecinos+=1;
-
-                }
-               if (this->grid[i-1][j+1] == 1)
-                {
-                    vecinos+=1;
-                    
-                }
-               if (this->grid[i+1][j-1] == 1)
-                {
-                    vecinos+=1;  
-                }
-               if (this->grid[i-1][j-1] == 1)
-                {
-                    vecinos+=1;  
-                }
-               if (this->grid[i][j+1] == 1)
-                {
-                    vecinos+=1;  
-                }
-               if (this->grid[i][j-1] == 1)
-                {
-                    vecinos+=1;
-                }
-            
+    int vecinos= 0;
+    
+    if (i != 0 && j != 0 && grid[i - 1][j - 1])
+    {
+        vecinos++;
+    }
+    if (j > 1 && i < this->cols - 2 && this->grid[i + 1][j - 1])
+    {
+        vecinos++;
+    }
+    
+    if (j != rows - 1 && grid[i][j + 1])
+    {
+        vecinos++;
+    }
+    if (i != 0 && grid[i - 1][j])
+    {
+        vecinos++;
+    }
+    
+    if (j != 0 && grid[i][j - 1])
+    {
+        vecinos++;
+    }
+    if (i != this->cols - 1 && this->grid[i + 1][j])
+    {
+        vecinos++;
+    }
+    if (i != 0 && j != rows - 1 && grid[i - 1][j + 1])
+    {
+        vecinos++;
+    }
+    if (j != rows - 1 && i != cols - 1 && grid[i + 1][j + 1])
+    {
+        vecinos++;
+    }
      return vecinos; 
 }
