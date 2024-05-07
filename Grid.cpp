@@ -126,7 +126,7 @@ int Grid::contarVecinos(int i, int j)
 {
     int vecinos= 0;
     
-    if (i != 0 && j != 0 && grid[i - 1][j - 1])
+    if (i != 0 && j != 0 && this->grid[i - 1][j - 1])
     {
         vecinos++;
     }
@@ -135,16 +135,16 @@ int Grid::contarVecinos(int i, int j)
         vecinos++;
     }
     
-    if (j != rows - 1 && grid[i][j + 1])
+    if (j != this->rows - 1 && this->grid[i][j + 1])
     {
         vecinos++;
     }
-    if (i != 0 && grid[i - 1][j])
+    if (i != 0 && this->grid[i - 1][j])
     {
         vecinos++;
     }
     
-    if (j != 0 && grid[i][j - 1])
+    if (j != 0 && this->grid[i][j - 1])
     {
         vecinos++;
     }
@@ -152,11 +152,11 @@ int Grid::contarVecinos(int i, int j)
     {
         vecinos++;
     }
-    if (i != 0 && j != rows - 1 && grid[i - 1][j + 1])
+    if (i != 0 && j != this->rows - 1 && this->grid[i - 1][j + 1])
     {
         vecinos++;
     }
-    if (j != rows - 1 && i != cols - 1 && grid[i + 1][j + 1])
+    if (j != this->rows - 1 && i != this->cols - 1 && this->grid[i + 1][j + 1])
     {
         vecinos++;
     }
